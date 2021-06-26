@@ -7,30 +7,15 @@ dataManager = DataManager()
 flight_data = FlightData()
 cities = dataManager.get_destination_data()
 
+print(cities)
 
 for city in cities:
     if(city["iataCode"] == ""):
-        city['iataCode'] = flight_data.find_iatacode(city=city["city"])
-        print(city['iataCode'])
+        unknown_iata_city = city["city"]
 
-
-# --- find iata code
-KIWI_ENDPOINT = "https://tequila-api.kiwi.com/locations/query"
-
-params = {
-
-    "term": "shanghai",  # --- location
-}
-
-headers = {
-    "apikey": "C_RSzwk5vah_aC6NPg5D8PqVtrTso5Fz",
-}
-
-response = requests.get(url=KIWI_ENDPOINT, params=params, headers=headers)
-
-location_id = response.json()['locations'][0]['code']
-pprint.pprint(f"Location ID: {location_id}")
+        city['iataCode'] = flight_data.find_iatacode(city=unknown_iata_city)
+    print(city['iataCode'])
 
 
 # --- update iata column
-# dataManager.update_destination_codes(cities=cities)
+dataManager.update_destination_codes(cities=cities)
