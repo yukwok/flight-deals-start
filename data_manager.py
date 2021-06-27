@@ -1,5 +1,6 @@
 import requests
 SHEETY_API = "https://api.sheety.co/e02e90cc81d3e6b66814fe14bef27a3e/flightDeals/prices"
+SHEETY_USERS_API = "https://api.sheety.co/e02e90cc81d3e6b66814fe14bef27a3e/flightDeals/users"
 
 
 class DataManager:
@@ -7,6 +8,7 @@ class DataManager:
 
     def __init__(self):
         self.destination_data = {}
+        self.user_emails = {}
 
     def get_destination_data(self):
 
@@ -35,3 +37,12 @@ class DataManager:
                 json=new_data
             )
             print(response.text)
+
+    def get_users_email_data(self):
+        SHEETY_USERS_API = "https://api.sheety.co/e02e90cc81d3e6b66814fe14bef27a3e/flightDeals/users"
+
+        response = requests.get(url=SHEETY_USERS_API)
+        data = response.json()
+        self.user_emails = data["users"]
+
+        return self.user_emails

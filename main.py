@@ -8,11 +8,22 @@ import pprint
 dataManager = DataManager()
 flight_data = FlightData()
 flight_search = FlightSearch()
-smsManager = NotificationManager()
+notifyManager = NotificationManager()
+
+# --- get the interested locations and user emails
 
 cities = dataManager.get_destination_data()
+user_list = dataManager.get_users_email_data()
+
+user_emails = []
+for user in user_list:
+    print(user["email"])
+    user_emails.append(user['email'])
+
+print(user_emails)
 
 print(cities)
+
 
 for city in cities:
     if(city["iataCode"] == ""):
@@ -41,4 +52,7 @@ for city in cities:
 print(cities_flights_sms)
 
 # -- make sms to phone
-smsManager.send_sms(cities_flights_sms)
+# notifyManager.send_sms(cities_flights_sms)
+
+notifyManager.send_emails(
+    emails=user_emails, coming_cheapest=cities_flights_sms)

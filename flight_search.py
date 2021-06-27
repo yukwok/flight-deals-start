@@ -53,8 +53,8 @@ class FlightSearch:
 
         cheapest_flight_charges = 99999999.0
 
-        print(
-            f"flight.no. origin   dest    {params['curr']}   departure    arrival    duration    ")
+        # print(
+        #     f"flight.no. origin   dest    {params['curr']}   departure    arrival    duration    ")
         for flight in flights:
             if cheapest_flight_charges > flight["price"]:
                 cheapest_flight_airline = flight['route'][0]['airline']
@@ -66,16 +66,6 @@ class FlightSearch:
                 cheapest_flight_duration = round(
                     flight["duration"]["total"]/3600, 1),
                 cheapest_flight_charges = flight["price"]
-
-                print(flight['route'][0]['airline'],
-                      flight['route'][0]['operating_flight_no'],
-                      flight["flyFrom"],
-                      flight["flyTo"],
-                      flight["price"],
-                      flight["local_departure"],
-                      flight["local_arrival"],
-                      round(flight["duration"]["total"]/3600, 1),
-                      )
 
                 cheapest_flight_details = f"{cheapest_flight_airline}{cheapest_flight_no} {cheapest_flight_flyFrom}-{cheapest_flight_flyTo} HKD{cheapest_flight_charges} {cheapest_flight_departtime}-{cheapest_flight_arrvtime}"
                 print(cheapest_flight_details)
